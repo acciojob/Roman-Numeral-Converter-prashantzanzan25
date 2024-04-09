@@ -10,16 +10,26 @@ function convertToRoman(num) {
     };
 
   //your code here
-	let result = '';
+	let roman = '';
+	for (let i = 0; i < Object.keys(obj).length; i++) {
+		const current = obj[i];
+		const next = obj[i + 1];
+		const currentValue = current[1];
+		const nextValue = next ? next[1] : 0;
 
-  for (let key in obj) {
-    while (num >= obj[key][1]) {
-      result += obj[key][0];
-      num -= obj[key][1];
-    }
-  }
+		while (num >= currentValue) {
+			roman += current[0];
+			num -= currentValue;
 
-  return result;
+			if (nextValue > currentValue) {
+				const diff = nextValue - currentValue;
+				roman += next[0];
+				num -= diff;
+			}
+		}
+	}
+
+	return roman;
 }
 // You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
 
